@@ -1,0 +1,10 @@
+name: ChatControl
+version: 1.0
+main: jacobrosa.chatchannels.ChatChannels
+author: KingBlueSapphire
+
+commands:
+  chatchannel:
+    usage: /chatchannel [args]
+    description: Set chat channel
+    aliases: [ cc ]
