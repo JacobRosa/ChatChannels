@@ -73,6 +73,7 @@ public class CommandChatChannel extends ChatChannelCommand{
 			arg1.add("global");
 			arg1.add("local");
 			arg1.add("world");
+			arg1.add("version");
 			if(sender.hasPermission(Permissions.commandStaffChat))
 				arg1.add("staff");
 			if(sender.hasPermission(Permissions.commandSocialSpy))
