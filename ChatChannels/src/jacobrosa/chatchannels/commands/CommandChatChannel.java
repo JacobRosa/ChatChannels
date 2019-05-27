@@ -1,5 +1,8 @@
 package jacobrosa.chatchannels.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -61,6 +64,22 @@ public class CommandChatChannel extends ChatChannelCommand{
 	@Override
 	public void run(CommandSender sender, Command cmd, String[] args) {
 		sender.sendMessage(ChatColor.RED + "Invalid sender!");
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
+		if(args.length == 1) {
+			List<String> arg1 = new ArrayList<>();
+			arg1.add("global");
+			arg1.add("local");
+			arg1.add("world");
+			if(sender.hasPermission(Permissions.commandStaffChat))
+				arg1.add("staff");
+			if(sender.hasPermission(Permissions.commandSocialSpy))
+				arg1.add("socialspy");
+			return arg1;
+		}
+		return new ArrayList<>();
 	}
 
 }
