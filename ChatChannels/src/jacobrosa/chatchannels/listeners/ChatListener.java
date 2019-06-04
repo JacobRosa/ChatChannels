@@ -17,8 +17,19 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import jacobrosa.chatchannels.utils.ChatHandler;
 import jacobrosa.chatchannels.utils.Permissions;
 import jacobrosa.chatchannels.utils.SocialSpyHandler;
+import net.md_5.bungee.api.ChatColor;
 
 public class ChatListener implements Listener{
+
+	private static boolean isChatMuted = false;
+
+	public static boolean isChatMuted() {
+		return isChatMuted;
+	}
+
+	public static void setChatMuted(boolean muted) {
+		isChatMuted = muted;
+	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerChatEventCC(AsyncPlayerChatEvent event) {
@@ -26,7 +37,15 @@ public class ChatListener implements Listener{
 		UUID uuid = player.getUniqueId();
 		String message = event.getMessage();
 		ChatChannel channel = ChatHandler.getChatChannel(player);
-
+		if(ChatListener.isChatMuted()) {
+			if(channel != ChatChannel.Staff) {
+				if(!player.hasPermission(Permissions.bypassMutedChat)) {
+					event.setCancelled(true);
+					player.sendMessage(ChatColor.RED + "Chat is currently muted!");
+					return;
+				}
+			}
+		}
 		if(channel == ChatChannel.Global) {
 			event.setFormat(ChatHandler.getChatPrefix(player) + " §7" + player.getDisplayName() + " §8» §f" + message);
 			return;

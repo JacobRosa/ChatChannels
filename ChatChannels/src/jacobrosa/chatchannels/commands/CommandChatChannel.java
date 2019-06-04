@@ -3,12 +3,14 @@ package jacobrosa.chatchannels.commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import jacobrosa.chatchannels.ChatChannels;
 import jacobrosa.chatchannels.listeners.ChatChannel;
+import jacobrosa.chatchannels.listeners.ChatListener;
 import jacobrosa.chatchannels.utils.ChatHandler;
 import jacobrosa.chatchannels.utils.Permissions;
 import jacobrosa.chatchannels.utils.SocialSpyHandler;
@@ -23,6 +25,8 @@ public class CommandChatChannel extends ChatChannelCommand{
 			player.sendMessage(ChatColor.GRAY + "/chatchannel <global|local|world|staff>");
 			if(player.hasPermission(Permissions.commandSocialSpy))
 				player.sendMessage(ChatColor.GRAY + "/chatchannel socialspy");
+			if(player.hasPermission(Permissions.commandMutechat))
+				player.sendMessage(ChatColor.GRAY + "/chatchannel mutechat");
 			return;
 		}
 		if(args[0].equalsIgnoreCase("global") || args[0].equalsIgnoreCase("g")) {
@@ -53,6 +57,16 @@ public class CommandChatChannel extends ChatChannelCommand{
 				player.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
 				return;
 			}
+		}else if(args[0].equalsIgnoreCase("mutechat")) {
+			if(player.hasPermission(Permissions.commandMutechat)) {
+				boolean chatMuted = !ChatListener.isChatMuted();
+				Bukkit.broadcastMessage(ChatColor.GRAY + "Chat has been " + (chatMuted ? "muted" : "unmuted") + " by " + player.getDisplayName() + ".");
+				ChatListener.setChatMuted(chatMuted);
+				return;
+			}else {
+				player.sendMessage(ChatColor.RED + "You do not have permission to use this command!");
+				return;
+			}
 		}else if(args[0].equalsIgnoreCase("version")) {
 			player.sendMessage(ChatColor.GRAY + ChatChannels.getPluginName() + " v" + ChatChannels.getVersion() + " by kingbluesapphire");
 		}else {
@@ -70,17 +84,26 @@ public class CommandChatChannel extends ChatChannelCommand{
 	public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length == 1) {
 			List<String> arg1 = new ArrayList<>();
-			arg1.add("global");
-			arg1.add("local");
-			arg1.add("world");
-			arg1.add("version");
+			if("global".startsWith(args[0]))
+				arg1.add("global");
+			if("local".startsWith(args[0]))
+				arg1.add("local");
+			if("world".startsWith(args[0]))
+				arg1.add("world");
+			if("version".startsWith(args[0]))
+				arg1.add("version");
 			if(sender.hasPermission(Permissions.commandStaffChat))
-				arg1.add("staff");
+				if("staff".startsWith(args[0]))
+					arg1.add("staff");
 			if(sender.hasPermission(Permissions.commandSocialSpy))
-				arg1.add("socialspy");
+				if("socialspy".startsWith(args[0]))
+					arg1.add("socialspy");
+			if(sender.hasPermission(Permissions.commandMutechat))
+				if("mutechat".startsWith(args[0]))
+					arg1.add("mutechat");
 			return arg1;
 		}
-		return new ArrayList<>();
+		return new ArrayList<String>();
 	}
 
 }
