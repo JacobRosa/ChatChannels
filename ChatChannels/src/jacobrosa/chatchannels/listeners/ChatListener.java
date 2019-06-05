@@ -18,7 +18,6 @@ import jacobrosa.chatchannels.utils.ChatHandler;
 import jacobrosa.chatchannels.utils.Permissions;
 import jacobrosa.chatchannels.utils.Prefix;
 import jacobrosa.chatchannels.utils.SocialSpyHandler;
-import net.md_5.bungee.api.ChatColor;
 
 public class ChatListener implements Listener{
 
