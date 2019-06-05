@@ -55,7 +55,7 @@ public class SocialSpyHandler {
 		if(!bln)
 			if(socialSpy.contains(uuid))
 				socialSpy.remove(uuid);
-		player.sendMessage(ChatColor.GRAY + "Social spy set to " + (bln ? ChatColor.GREEN : ChatColor.RED) + bln);
+		player.sendMessage(Prefix.command + ChatColor.GRAY + "Social spy set to " + (bln ? ChatColor.GREEN : ChatColor.RED) + bln);
 	}
 
 	public static boolean hasSocialSpyEnabled(Player player) {

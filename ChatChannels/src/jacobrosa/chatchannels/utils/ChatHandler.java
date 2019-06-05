@@ -48,7 +48,7 @@ public class ChatHandler {
 
 	public static void setChatChannel(Player player, ChatChannel channel) {
 		playerChannel.put(player.getUniqueId(), channel);
-		player.sendMessage("Chat channel set to " + getChatPrefix(player));
+		player.sendMessage(Prefix.chat + "§7Chat channel set to " + getChatPrefix(player));
 	}
 
 	public static ChatChannel getChatChannel(Player player) {

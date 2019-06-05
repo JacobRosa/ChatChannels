@@ -16,6 +16,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import jacobrosa.chatchannels.utils.ChatHandler;
 import jacobrosa.chatchannels.utils.Permissions;
+import jacobrosa.chatchannels.utils.Prefix;
 import jacobrosa.chatchannels.utils.SocialSpyHandler;
 import net.md_5.bungee.api.ChatColor;
 
@@ -41,7 +42,7 @@ public class ChatListener implements Listener{
 			if(channel != ChatChannel.Staff) {
 				if(!player.hasPermission(Permissions.bypassMutedChat)) {
 					event.setCancelled(true);
-					player.sendMessage(ChatColor.RED + "Chat is currently muted!");
+					player.sendMessage(Prefix.chat + "§7Chat is currently muted!");
 					return;
 				}
 			}

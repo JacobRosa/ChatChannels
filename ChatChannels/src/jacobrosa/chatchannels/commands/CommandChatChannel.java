@@ -13,6 +13,7 @@ import jacobrosa.chatchannels.listeners.ChatChannel;
 import jacobrosa.chatchannels.listeners.ChatListener;
 import jacobrosa.chatchannels.utils.ChatHandler;
 import jacobrosa.chatchannels.utils.Permissions;
+import jacobrosa.chatchannels.utils.Prefix;
 import jacobrosa.chatchannels.utils.SocialSpyHandler;
 import net.md_5.bungee.api.ChatColor;
 
@@ -21,7 +22,7 @@ public class CommandChatChannel extends ChatChannelCommand{
 	@Override
 	public void run(Player player, Command cmd, String[] args) {
 		if(args.length == 0) {
-			player.sendMessage(ChatColor.GRAY + "You are currently in chat channel " + ChatHandler.getChatPrefix(player));
+			player.sendMessage(Prefix.chat + ChatColor.GRAY + "You are currently in chat channel " + ChatHandler.getChatPrefix(player));
 			player.sendMessage(ChatColor.GRAY + "/chatchannel <global|local|world|staff>");
 			if(player.hasPermission(Permissions.commandSocialSpy))
 				player.sendMessage(ChatColor.GRAY + "/chatchannel socialspy");
@@ -60,7 +61,7 @@ public class CommandChatChannel extends ChatChannelCommand{
 		}else if(args[0].equalsIgnoreCase("mutechat")) {
 			if(player.hasPermission(Permissions.commandMutechat)) {
 				boolean chatMuted = !ChatListener.isChatMuted();
-				Bukkit.broadcastMessage(ChatColor.GRAY + "Chat has been " + (chatMuted ? "muted" : "unmuted") + " by " + player.getDisplayName() + ".");
+				Bukkit.broadcastMessage(Prefix.chat + ChatColor.GRAY + "Chat has been " + (chatMuted ? "muted" : "unmuted") + " by " + player.getDisplayName() + ".");
 				ChatListener.setChatMuted(chatMuted);
 				return;
 			}else {
@@ -70,7 +71,7 @@ public class CommandChatChannel extends ChatChannelCommand{
 		}else if(args[0].equalsIgnoreCase("version")) {
 			player.sendMessage(ChatColor.GRAY + ChatChannels.getPluginName() + " v" + ChatChannels.getVersion() + " by kingbluesapphire");
 		}else {
-			player.sendMessage(ChatColor.RED + "Invalid chat channel.");
+			player.sendMessage(Prefix.command + "§7Invalid chat channel.");
 			return;
 		}
 	}
