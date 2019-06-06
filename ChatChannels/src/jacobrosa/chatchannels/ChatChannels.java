@@ -31,6 +31,7 @@ public class ChatChannels extends JavaPlugin{
 	public void onEnable() {
 		plugin = this;
 		
+		@SuppressWarnings("unused")
 		Metrics metrics = new Metrics(this);
 
 		name = getDescription().getName();
