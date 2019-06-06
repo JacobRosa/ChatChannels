@@ -30,6 +30,8 @@ public class ChatChannels extends JavaPlugin{
 	@Override
 	public void onEnable() {
 		plugin = this;
+		
+		Metrics metrics = new Metrics(this);
 
 		name = getDescription().getName();
 		version = getDescription().getVersion();
